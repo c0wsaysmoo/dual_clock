@@ -1,2 +1,2 @@
 # dual_clock
-shows two timezones/ the current temp/humidity/rain chance for the next hour and whole day/current wind speed and gust/ and wind direction
+shows the time in two time zones, the current day and date in the middle. the upper right shows the current temp that color is based on the current humidity. under that is the chance of rain within the hour and the color is based on if its suppose to rain at all today. the bottom right shows the current wind speed and takes the difference between speed and gust for the color, green is within 5mph/ yellow is 10mph/ red is over 10mph. The bottom shows the current wind direction. youll need a api code from tomorrow.io
