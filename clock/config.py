@@ -1,8 +1,9 @@
-TEMPERATURE_LOCATION = "##.#####,##.#####" #lat,long of your place usually the same as location_home
-TOMORROW_API_KEY = "#####" # Get an API key from https://www.tomorrow.io/
+TEMPERATURE_LOCATION = "xx.xxxxxx,xx.xxxxxx" #lat,long of your location I use https://www.latlong.net/
+TOMORROW_API_KEY = "xxxx" # Get an API key from https://www.tomorrow.io/
 TEMPERATURE_UNITS = "imperial" #type metric if you want that instead for whatever reason
-DISTANCE_UNITS = "imperial" #type metric if you want that instead for whatever reason
-CLOCK_FORMAT = "12hr" #use 12hr or 24hr add that to your config file
+CLOCK_FORMAT = "12hr" #use 12hr or 24hr clock
 BRIGHTNESS = 100
-GPIO_SLOWDOWN = 2
+GPIO_SLOWDOWN = 1
 HAT_PWM_ENABLED = True #if you didn't solder type False
+LOCAL_TIME = "America/New_York" # copy paste from here https://logic.edchen.org/linux-all-available-time-zones/
+SECOND_TIME = "America/Los_Angeles" # copy paste from here https://logic.edchen.org/linux-all-available-time-zones/

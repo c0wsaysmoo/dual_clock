@@ -8,7 +8,7 @@ from rgbmatrix import graphics
 import logging
 
 # Configure logging
-logging.basicConfig(filename='rain.log', level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#logging.basicConfig(filename='rain.log', level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 # Setup
 TEXT_FONT = fonts.extrasmall
@@ -43,35 +43,32 @@ class RainScene(object):
 
         # Check for regular time-based refresh every RAIN_REFRESH seconds
         if self._seconds_since_update >= RAIN_REFRESH or self._redraw_forecast:
-            logging.debug("Refreshing rain data and forecast...")
+            #logging.debug("Refreshing rain data and forecast...")
             self._seconds_since_update = 0
 
             # Reset _redraw_forecast to True after regular refresh
             self._redraw_forecast = True
 
-            # Grab forecast every RAIN_REFRESH seconds
-            if self._seconds_since_update % RAIN_REFRESH == 0:
-                logging.debug("Making API call for new forecast...")
-                forecast = grab_forecast()
-                if forecast is not None:
-                    self._cached_forecast = forecast
-                    self._redraw_forecast = False
-                    logging.debug(f"Forecast Data: {forecast}")
+            # Grab forecast and rain data every RAIN_REFRESH seconds
+            #logging.debug("Making API call for new forecast and rain data...")
+            forecast = grab_forecast()
+            rain_chance = grab_rain()
 
-            # Grab rain data every hour
-            if self._last_hour != current_hour:
-                logging.debug("Making API call for new rain data...")
-                rain_chance = grab_rain()
-                if rain_chance is not None:
-                    self._cached_rain_chance = rain_chance
-                    logging.debug(f"Rain Data: {rain_chance}")
-                    
-                current_day_data = rain_chance[0]
-                logging.debug(f"Current Day Data: {current_day_data}")
+            if forecast is not None:
+                self._cached_forecast = forecast
+                self._redraw_forecast = False
+                #logging.debug(f"Forecast Data: {forecast}")
+
+            if rain_chance is not None:
+                self._cached_rain = rain_chance
+                #logging.debug(f"Rain Data: {rain_chance}")
+
+            current_day_data = rain_chance[0]
+            #logging.debug(f"Current Day Data: {current_day_data}")
 
             # Undraw old precipitation probability
             if self._last_rain_str is not None:
-                self.draw_square(40, 5, 64, 10, colours.BLACK)
+                self.draw_square(40, 5, 64, 9, colours.BLACK)
 
             # Extract forecast
             current_hour_data = forecast[0]

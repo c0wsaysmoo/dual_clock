@@ -2,13 +2,14 @@ from datetime import datetime
 from rgbmatrix import graphics
 from utilities.animator import Animator
 from setup import colours, fonts, frames, screen
-from utilities.temperature import grab_weather_data, grab_forecast
+from utilities.temperature import grab_weather_data
+from config import TEMPERATURE_UNITS
 import colorsys
 
 import logging
 
 # Configure logging
-logging.basicConfig(filename='weather.log', level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#logging.basicConfig(filename='weather.log', level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 REFRESH_SECONDS = 600
 WEATHER_FONT = fonts.extrasmall
@@ -107,14 +108,20 @@ class WeatherScene(object):
             # Wind update logic
             if wind_speed is not None and wind_gust is not None:
                 wind_speed_color = self.determine_color(wind_gust, wind_speed)
-                self._last_wind_info_str = f"{round(wind_speed)}mph"
+
+                if TEMPERATURE_UNITS == "imperial":
+                    wind_speed_str = f"{round(wind_speed)}mph"
+                elif TEMPERATURE_UNITS == "metric":
+                    wind_speed_str = f"{round(wind_speed)}m/s"
+
+                self._last_wind_info_str = wind_speed_str
                 self._last_wind_info = wind_speed
 
                 font_character_width = 4
                 wind_info_width = len(self._last_wind_info_str) * font_character_width
                 middle_x = (40 + 64) // 2
                 start_x_speed = middle_x - wind_info_width // 2
-                WIND_SPEED_POSITION = (start_x_speed, 26)  # Adjusted y-coordinate to 26
+                WIND_SPEED_POSITION = (start_x_speed, 26)
 
                 # Draw wind speed
                 _ = graphics.DrawText(
@@ -132,7 +139,7 @@ class WeatherScene(object):
                     self._last_wind_direction_info = wind_direction
                     wind_direction_width = len(self._last_wind_direction_info_str) * font_character_width
                     start_x_direction = middle_x - wind_direction_width // 2
-                    WIND_DIRECTION_POSITION = (start_x_direction, 32)  # Adjusted y-coordinate to 32
+                    WIND_DIRECTION_POSITION = (start_x_direction, 32)  
 
                     # Draw wind direction
                     _ = graphics.DrawText(
@@ -140,7 +147,7 @@ class WeatherScene(object):
                         WEATHER_FONT,
                         WIND_DIRECTION_POSITION[0],
                         WIND_DIRECTION_POSITION[1],
-                        colours.WHITE,  # You can choose a color for the wind direction
+                        colours.GREY,  
                         self._last_wind_direction_info_str,
                     )
 

@@ -44,7 +44,7 @@ class Display(
         options.pwm_bits = 11
         options.brightness = BRIGHTNESS
         options.pwm_lsb_nanoseconds = 130
-        options.led_rgb_sequence = "RGB"
+        options.led_rgb_sequence = "RBG"
         options.pixel_mapper_config = ""
         options.show_refresh_rate = 0
         options.gpio_slowdown = GPIO_SLOWDOWN
